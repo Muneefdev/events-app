@@ -1,0 +1,23 @@
+# Binaries for programs and plugins
+*.exe
+*.dll
+*.so
+*.dylib
+
+# Test binary, build with 'go test -c'
+*.test
+
+# Output of the go coverage tool, specifically when used with LiteIDE
+*.out
+
+# Ignore .DS_Store files created by macOS
+.DS_Store
+
+# Ignore .idea directory created by IntelliJ IDEA
+.idea/
+
+# Ignore .vscode directory created by Visual Studio Code
+.vscode/
+
+# Ignore .cache directory created by various tools
+.cache/
