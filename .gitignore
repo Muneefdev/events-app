@@ -21,3 +21,6 @@
 
 # Ignore .cache directory created by various tools
 .cache/
+
+.env
+

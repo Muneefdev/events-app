@@ -1,0 +1,4 @@
+GET {{BASE_URL}}:{{PORT}}/api/events
+
+GET {{BASE_URL}}:{{PORT}}/api/events/3
+
