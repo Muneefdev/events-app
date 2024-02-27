@@ -3,16 +3,16 @@ package models
 import (
 	"time"
 
-	"example.com/rest-apis/events/db"
+	"github.com/muneefdev/events-app/db"
 )
 
 type Event struct {
-	ID          int64
-	Name        string    `binding:"required"`
-	Description string    `binding:"required"`
-	Location    string    `binding:"required"`
-	DateTime    time.Time `binding:"required"`
-	UserId      int64
+	ID          int64     `json:"id"`
+	Name        string    `binding:"required" json:"name"`
+	Description string    `binding:"required" json:"description"`
+	Location    string    `binding:"required" json:"location"`
+	DateTime    time.Time `binding:"required" json:"dateTime"`
+	UserId      int64     `json:"userId"`
 }
 
 func (e *Event) Save() error {
@@ -20,19 +20,16 @@ func (e *Event) Save() error {
   name, description, location, dateTime, user_id) 
   VALUES (?, ?, ?, ?, ?) 
   `
-	sqlStmt, err := db.DB.Prepare(query)
-	if err != nil {
-		return err
-	}
-	defer sqlStmt.Close()
-
-	result, err := sqlStmt.Exec(e.Name, e.Description, e.Location, e.DateTime, e.UserId)
+	result, err := db.DB.Exec(query, e.Name, e.Description, e.Location, e.DateTime, e.UserId)
 	if err != nil {
 		return err
 	}
 
-	id, err := result.LastInsertId()
-	e.UserId = id
+	e.ID, err = result.LastInsertId()
+	if err != nil {
+		return err
+	}
+
 	return nil
 }
 
@@ -92,11 +89,10 @@ func GetAllEvents() (*[]Event, error) {
 }
 
 func DeleteEventById(id int64) error {
-  sqlStmt := `DELETE FROM events WHERE id = ?`
-  _, err := db.DB.Exec(sqlStmt, id)
-  if err != nil {
-    return err
-  }
-  return nil
+	sqlStmt := `DELETE FROM events WHERE id = ?`
+	_, err := db.DB.Exec(sqlStmt, id)
+	if err != nil {
+		return err
+	}
+	return nil
 }
-
