@@ -1,0 +1,2 @@
+POST {{BASE_URL}}:{{PORT}}/api/events/5/register
+Authorization: {{TOKEN}}

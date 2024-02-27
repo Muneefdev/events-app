@@ -1,0 +1,2 @@
+GET {{BASE_URL}}:{{PORT}}/api/events/registered
+Authorization: {{TOKEN}}

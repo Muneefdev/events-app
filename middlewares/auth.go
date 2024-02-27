@@ -29,6 +29,7 @@ func AuthMiddleware(c *gin.Context) {
 		return
 	}
 
+  // Set user id in context
 	if userID, ok := claims["userID"].(float64); ok {
 		c.Set("userID", int64(userID))
 	}

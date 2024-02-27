@@ -12,7 +12,18 @@ func CreateUserHandler(c *gin.Context) {
 	err := c.ShouldBindJSON(&user)
 	if err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{
+			"error":   err.Error(),
 			"message": "Invalid request body",
+			"success": false,
+			"data":    nil,
+		})
+		return
+	}
+
+	errors := user.Validate()
+	if len(errors) != 0 {
+		c.JSON(http.StatusBadRequest, gin.H{
+			"message": errors,
 			"success": false,
 			"data":    nil,
 		})

@@ -3,15 +3,16 @@ package models
 import (
 	"errors"
 
+	"github.com/go-playground/validator/v10"
 	"github.com/muneefdev/events-app/db"
 	"github.com/muneefdev/events-app/utails"
 )
 
 type User struct {
 	ID       int64  `json:"id"`
-	Name     string `binding:"required" json:"name"`
-	Email    string `binding:"required" json:"email"`
-	Password string `binding:"required" json:"password"`
+	Name     string `json:"name" validate:"required"`
+	Email    string `json:"email" validate:"required,email"`
+	Password string `json:"password" validate:"required,min=6,max=20"`
 }
 
 func (u *User) Save() error {
@@ -78,4 +79,29 @@ func (e *User) Login() (string, error) {
 	}
 
 	return token, nil
+}
+
+func (u *User) Validate() map[string]string {
+	validate := validator.New()
+
+	errors := map[string]string{}
+	if err := validate.Struct(u); err != nil {
+		for _, e := range err.(validator.ValidationErrors) {
+			e.Tag()
+			switch e.Tag() {
+			case "required":
+				errors[e.Field()] = " is required."
+			case "email":
+				errors[e.Field()] = "must be a valid email address."
+			case "min":
+				errors[e.Field()] = " must be at least " + e.Param() + " characters."
+			case "max":
+				errors[e.Field()] = "  must be at most " + e.Param() + " characters."
+			default:
+				errors[e.Field()] = " is invalid."
+			}
+		}
+	}
+
+	return errors
 }

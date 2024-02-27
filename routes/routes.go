@@ -17,8 +17,14 @@ func RegisterRoutes(r *gin.Engine) {
 	auth.PATCH("/events/:id", handlers.UpdateEventByIdHandler)
 	auth.DELETE("/events/:id", handlers.DeleteEventByIdHandler)
 
+  // Registering for an event
+	auth.GET("/events/registered", handlers.GetAllRegisteredEventsHandler)
+	auth.POST("/events/:id/register", handlers.RegisterEventHandler)
+	auth.DELETE("/events/:id/registered", handlers.DeleteRegisteredEventHandler)
+
 	// User routes
 	r.POST("/api/register", handlers.CreateUserHandler)
 	r.POST("/api/login", handlers.LoginHandler)
 	r.GET("/api/users", handlers.GetAllUsersHandler)
+
 }
