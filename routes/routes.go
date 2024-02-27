@@ -1,11 +1,24 @@
 package routes
 
-import "github.com/gin-gonic/gin"
+import (
+	"github.com/gin-gonic/gin"
+	"github.com/muneefdev/events-app/handlers"
+	"github.com/muneefdev/events-app/middlewares"
+)
 
 func RegisterRoutes(r *gin.Engine) {
-	r.GET("/api/events", GetAllEventsHandler)
-	r.GET("/api/events/:id", GetEventByIdHandler)
-	r.POST("/api/events", CreateEventsHandler)
-  r.PATCH("/api/events/:id", UpdateEventByIdHandler)
-  r.DELETE("/api/events/:id", DeleteEventByIdHandler)
+	// Public routes
+	r.GET("/api/events", handlers.GetAllEventsHandler)
+	r.GET("/api/events/:id", handlers.GetEventByIdHandler)
+
+	// Authenticated routes
+	auth := r.Group("/api", middlewares.AuthMiddleware)
+	auth.POST("/events", handlers.CreateEventsHandler)
+	auth.PATCH("/events/:id", handlers.UpdateEventByIdHandler)
+	auth.DELETE("/events/:id", handlers.DeleteEventByIdHandler)
+
+	// User routes
+	r.POST("/api/register", handlers.CreateUserHandler)
+	r.POST("/api/login", handlers.LoginHandler)
+	r.GET("/api/users", handlers.GetAllUsersHandler)
 }
