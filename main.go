@@ -3,8 +3,8 @@ package main
 import (
 	"os"
 
-	"example.com/rest-apis/events/db"
-	"example.com/rest-apis/events/routes"
+	"github.com/muneefdev/events-app/db"
+	"github.com/muneefdev/events-app/routes"
 	"github.com/gin-gonic/gin"
 	"github.com/joho/godotenv"
 )

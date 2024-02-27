@@ -25,7 +25,8 @@ func CreateTable() {
   CREATE TABLE IF NOT EXISTS users (
   id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
   name TEXT NOT NULL,
-  email TEXT NOT NULL,
+  email TEXT NOT NULL UNIQUE,
+  password TEXT NOT NULL
   )
   `
 	_, err := DB.Exec(createUserTable)
@@ -47,4 +48,18 @@ func CreateTable() {
 	if err != nil {
 		panic("Error creating events table.")
 	}
+
+	//createRegistrationTable := `
+	//CREATE TABLE IF NOT EXISTS registrations (
+	//id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+	//user_id INTEGER NOT NULL,
+	//event_id INTEGER NOT NULL
+	//foreign key (user_id) references users(id),
+	//foreign key (event_id) references events(id)
+	//)`
+	//
+	//_, err = DB.Exec(createRegistrationTable)
+	//if err != nil {
+	//panic("Error creating registrations table.")
+	//}
 }

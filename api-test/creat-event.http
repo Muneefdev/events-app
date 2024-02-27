@@ -1,5 +1,6 @@
 POST {{BASE_URL}}:{{PORT}}/api/events
 Content-Type: application/json
+Authorization: {{TOKEN}}
 
 {
   "name": "Test event",

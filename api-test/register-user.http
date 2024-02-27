@@ -1,0 +1,8 @@
+POST {{BASE_URL}}:{{PORT}}/api/register
+Content-Type: application/json
+
+{
+  "name": "Foo",
+  "email": "foo@gmail.com",
+  "password": "123"
+}

@@ -1,10 +1,11 @@
-PATCH {{BASE_URL}}:{{PORT}}/api/events/3
+PATCH {{BASE_URL}}:{{PORT}}/api/events/4
 Content-Type: application/json
+Authorization: {{TOKEN}}
 
 {
-  "name": "Event 3 Updated",
-  "description": "Updated description of event 3",
-  "location": "Updated location of event 3",
+  "name": "Event 1 Updated",
+  "description": "Updated description of event 1",
+  "location": "Updated location of event 1",
   "dateTime": "2024-01-01T15:30:00Z"
 }
 

@@ -1,1 +1,2 @@
 DELETE {{BASE_URL}}:{{PORT}}/api/events/3
+Authorization: {{TOKEN}}

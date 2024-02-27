@@ -1,0 +1,12 @@
+POST {{BASE_URL}}:{{PORT}}/api/login
+Content-Type: application/json
+Header: Authorization Bearer {{TOKEN}}
+
+{
+"name": "Foo",
+"email": "foo@gmail.com",
+"password": "123"
+}
+
+
+
